@@ -20,7 +20,7 @@
 
 <div class="container">
     <h2>Sai Computer Service</h2>
-    <p class="subtitle">Official Customer Complaint Form</p>
+    <p class="subtitle">KG Overseas Complaint Form</p>
     <hr>
     
     <form id="complaintForm">
@@ -30,21 +30,21 @@
         <label for="phone">Phone Number</label>
         <input type="tel" id="phone" required>
 
-        <label for="order-id">Service ID (Optional)</label>
+        <label for="order-id">Location (Optional)</label>
         <input type="text" id="order-id">
 
         <label for="issue-type">Nature of Complaint</label>
         <select id="issue-type">
-            <option value="Repair Delay">Delay in Repair</option>
+            <option value="Repair Delay">Repair</option>
             <option value="Hardware Issue">Hardware Part Issue</option>
-            <option value="Billing Dispute">Billing or Pricing Issue</option>
+            <option value="Billing Dispute">Network Issue</option>
             <option value="Other">Other</option>
         </select>
 
         <label for="description">Detailed Description</label>
         <textarea id="description" rows="5" required></textarea>
 
-        <button type="button" onclick="sendToWhatsApp()">Submit to WhatsApp</button>
+        <button type="button" onclick="sendToWhatsApp()">Submit</button>
     </form>
 </div>
 
