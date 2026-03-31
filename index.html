@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Form - Sai Computer Service</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 600px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
+        h2 { color: #333; text-align: center; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 20px; }
+        label { font-weight: bold; display: block; margin-top: 15px; color: #444; }
+        input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+        button { background-color: #25D366; color: white; padding: 12px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 25px; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #128C7E; }
+        hr { border: 0; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Sai Computer Service</h2>
+    <p class="subtitle">Official Customer Complaint Form</p>
+    <hr>
+    
+    <form id="complaintForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" required>
+
+        <label for="order-id">Service ID (Optional)</label>
+        <input type="text" id="order-id">
+
+        <label for="issue-type">Nature of Complaint</label>
+        <select id="issue-type">
+            <option value="Repair Delay">Delay in Repair</option>
+            <option value="Hardware Issue">Hardware Part Issue</option>
+            <option value="Billing Dispute">Billing or Pricing Issue</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="description">Detailed Description</label>
+        <textarea id="description" rows="5" required></textarea>
+
+        <button type="button" onclick="sendToWhatsApp()">Submit to WhatsApp</button>
+    </form>
+</div>
+
+<script>
+    function sendToWhatsApp() {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const orderId = document.getElementById('order-id').value || "N/A";
+        const issue = document.getElementById('issue-type').value;
+        const description = document.getElementById('description').value;
+
+        // Your WhatsApp Number
+        const whatsappNumber = "918700032815"; 
+
+        const message = `*Sai Computer Service Complaint*%0A` +
+                        `*Name:* ${name}%0A` +
+                        `*Phone:* ${phone}%0A` +
+                        `*Service ID:* ${orderId}%0A` +
+                        `*Issue:* ${issue}%0A` +
+                        `*Details:* ${description}`;
+
+        const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+        
+        if(name && phone && description) {
+            window.open(url, '_blank').focus();
+        } else {
+            alert("Please fill in all required fields.");
+        }
+    }
+</script>
+
+</body>
+</html>
