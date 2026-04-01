@@ -3,264 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Portal | Sai Computer Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Enterprise Support | Sai Computer Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Vibrant but Professional Color Palette */
-            --gradient-start: #6366f1; /* Cool Indigo */
-            --gradient-end: #10b981;   /* Vibrant Teal */
-            --card-bg: rgba(255, 255, 255, 0.98); /* Near-white frosted effect */
-            --text-main: #111827;      /* Clear Dark Slate for readability */
-            --text-muted: #6b7280;    /* Muted Slate for subtitles */
-            --border-focus: #10b981;  /* Focus accent: Teal */
-            --error-red: #ef4444;     /* Red for mandatory indicator */
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --bg-dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.98);
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --error: #ef4444;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body { 
-            font-family: 'Inter', sans-serif; 
-            /* Full-page Gradient Background */
-            background: linear-gradient(135deg, var(--gradient-start) 0%, #a78bfa 50%, var(--gradient-end) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: radial-gradient(circle at top left, #4f46e5, #0f172a);
+            background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;
         }
 
-        /* Themed Card Design */
-        .mandatory-card { 
-            width: 100%;
-            max-width: 480px; 
-            background: var(--card-bg); 
-            padding: 45px; 
-            border-radius: 24px; 
-            /* Premium, Soft Shadow */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5); /* Soft highlight on card border */
-            transition: all 0.3s ease;
+        .portal-card { 
+            width: 100%; max-width: 500px; background: var(--glass); 
+            padding: 35px; border-radius: 32px; 
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .header { text-align: center; margin-bottom: 35px; position: relative;}
-        
-        h2 { 
-            font-size: 26px; 
-            font-weight: 800; 
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
+        .header { text-align: center; margin-bottom: 25px; }
+        .logo-area { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: -1px; }
+        .status-badge { background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 8px; display: inline-block; }
 
-        /* Teal Accent Bar below header */
-        .header::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--gradient-end);
-            border-radius: 2px;
-            margin: 12px auto 0;
-        }
+        .tab-nav { display: flex; background: #f1f5f9; padding: 6px; border-radius: 16px; margin-bottom: 25px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.3s; color: var(--text-light); }
+        .active-tab { background: white; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        .subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .required-notice {
-            font-size: 12px;
-            color: var(--error-red);
-            font-weight: 600;
-            text-align: right;
-            margin-bottom: 12px;
-        }
-
-        /* Input Field Styling */
-        .form-group { margin-bottom: 24px; }
-
-        label { 
-            display: block; 
-            font-size: 13px; 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        label::after {
-            content: " *";
-            color: var(--error-red);
-        }
-
-        /* Override for optional field */
-        .optional label::after { content: ""; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 10px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px;}
+        label::after { content: " *"; color: var(--error); }
 
         input, textarea, select { 
-            width: 100%; 
-            padding: 15px 18px; 
-            border: 1.5px solid #e2e8f0; /* Soft Slate border */
-            border-radius: 12px; 
-            font-size: 15px;
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            background: #ffffff;
-            appearance: none; /* Removal of native dropdown arrow */
+            width: 100%; padding: 12px; border: 2px solid #f1f5f9; border-radius: 12px; 
+            font-size: 14px; background: #f8fafc; transition: 0.2s; font-family: inherit;
         }
 
-        /* Handling for custom modern select arrow */
-        select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3%3C/path%3%3C/svg%3%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            background-size: 18px;
+        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); background: #fff; }
+
+        .btn-submit { 
+            background: var(--primary); color: white; padding: 16px; border: none; 
+            border-radius: 16px; width: 100%; font-size: 15px; font-weight: 700; 
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
         }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--border-focus); /* Teal Border */
-            /* Indigo focus glow */
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-        }
+        /* Success/Mobile Message Simulation */
+        .receipt { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 20px; border-radius: 20px; margin: 20px 0; text-align: center; }
+        .ticket-id { font-size: 24px; font-weight: 800; color: var(--primary); font-family: monospace; }
+        .mobile-alert { background: #dcfce7; color: #166534; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        /* Modern, Colorful Submit Button */
-        .btn-send { 
-            /* Gradient Button to match background */
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-            color: #fff; 
-            padding: 18px; 
-            border: none; 
-            border-radius: 14px; 
-            cursor: pointer; 
-            width: 100%; 
-            font-size: 16px; 
-            font-weight: 700; 
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+        .stars { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; }
+        .star { font-size: 30px; color: #e2e8f0; cursor: pointer; }
+        .star.selected { color: #fbbf24; }
 
-        .btn-send:hover { 
-            /* Brighten on hover for a vibrant interactive effect */
-            filter: brightness(1.05);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px -5px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-send:active {
-            transform: translateY(1px);
-        }
-
-        .footer {
-            margin-top: 35px;
-            font-size: 12px;
-            text-align: center;
-            color: var(--text-muted);
-            line-height: 1.6;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 25px;
-        }
+        .footer { margin-top: 25px; text-align: center; color: var(--text-light); font-size: 11px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="mandatory-card">
+<div class="portal-card" id="portalCard">
     <div class="header">
-        <h2>Sai Computer Service</h2>
-        <p class="subtitle">KG Overseas Official Complaint Logging Portal</p>
+        <div class="logo-area">SAI COMPUTER SERVICE</div>
+        <span class="status-badge">Professional Support Hub</span>
     </div>
 
-    <div class="required-notice">* Required Fields</div>
-    
-    <form id="mainForm">
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="name" placeholder="E.g., Ram" required>
-        </div>
+    <div class="tab-nav">
+        <button class="tab-btn active-tab" id="tabOpen" onclick="showForm('open')">New Ticket</button>
+        <button class="tab-btn" id="tabClose" onclick="showForm('close')">Close Ticket</button>
+    </div>
 
-        <div class="form-group">
-            <label>Contact Number (WhatsApp)</label>
-            <input type="tel" id="phone" placeholder="+91 8553323366" required>
+    <div id="formBody">
         </div>
-
-        <div class="form-group">
-            <label>Department / Issue Category</label>
-            <select id="issue-type" required>
-                <option value="">-- Select Category --</option>
-                <option value="Technical Repair">Technical Repair</option>
-                <option value="Hardware Issue">Hardware Issue</option>
-                <option value="Network/Connectivity">Network/Connectivity</option>
-                <option value="Software License">Software License</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Description of Incident</label>
-            <textarea id="description" rows="5" placeholder="Please provide specific details..." required></textarea>
-        </div>
-
-        <div class="form-group optional">
-            <label>Site Location (Optional)</label>
-            <input type="text" id="location" placeholder="Branch or Site ID">
-        </div>
-
-        <button type="button" class="btn-send" onclick="validateAndSend()">
-            <svg style="width:20px;height:20px" viewBox="0 0 24 24"><path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" /></svg>
-            SUBMIT OFFICIAL LOG
-        </button>
-    </form>
 
     <div class="footer">
-        Strictly Confidential | Sai Computer Services Verified Service Channel.
+        © 2026 Sai Computer Services | Support Desk
     </div>
 </div>
 
 <script>
-    function validateAndSend() {
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const issue = document.getElementById('issue-type').value;
-        const description = document.getElementById('description').value;
-        const loc = document.getElementById('location').value || "N/A";
+    let rating = 0;
+    const WHATSAPP_TARGET = "918700032815";
 
-        // mandatory validation check
-        if(!name || !phone || !issue || !description) {
-            alert("MANDATORY: Please fill in all required fields marked with *.");
-            return;
-        }
-
-        const whatsappNumber = "918700032815"; 
-
-        const message = `*MANDATORY COMPLAINT REPORT*%0A` +
-                        `*Source:* Sai Computer Service Portal%0A` +
-                        `----------------------------%0A` +
-                        `*Customer Name:* ${name}%0A` +
-                        `*Contact:* ${phone}%0A` +
-                        `*Category:* ${issue}%0A` +
-                        `*Location:* ${loc}%0A` +
-                        `*Incident Details:* ${description}%0A` +
-                        `----------------------------%0A` +
-                        `_Timestamp: ${new Date().toLocaleString()}_`;
-
-        const url = `https://wa.me/${whatsappNumber}?text=${message}`;
-        window.open(url, '_blank').focus();
+    function getTime() { 
+        return new Date().toLocaleString('en-IN', { 
+            dateStyle: 'medium', 
+            timeStyle: 'short', 
+            timeZone: 'Asia/Kolkata' 
+        }); 
     }
-</script>
 
+    function showForm(type) {
+        const body = document.getElementById('formBody');
+        const btnO = document.getElementById('tabOpen');
+        const btnC = document.getElementById('tabClose');
+
+        if(type === 'open') {
+            btnO.className = 'tab-btn active-tab';
+            btnC.className = 'tab-btn';
+            body.innerHTML = `
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name" placeholder="E.g. Tosh Kumar">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="phone" placeholder="+91">
+                </div>
+                <div class="form-group">
+                    <label>Site Location</label>
+                    <select id="location">
+                        <option value="">-- Select Site --</option>
+                        <option value="Lawrence Road DL">Lawrence Road DL</option>
+                        <option value="Gurukul HR">Gurukul HR</option>
+                        <option value="Urban HR">Urban HR</option>
+                        <option value="Kawari UP">Kawari UP</option>
+                        <option value="Ajori UP">Ajori UP</option>
+                        <option value="Guriya Pech UP">Guriya Pech UP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Issue Category</label>
+                    <select id="category">
+                        <option value="">-- Select Category --</option>
+                        <option value="Server Issue">Server Issue</option>
+                        <option value="Thin Client Issue">Thin Client Issue</option>
+                        <option value="Monitor Issue">Monitor Issue</option>
+                        <option value="Printer Issue">Printer Issue</option>
+                        <option value="Network/Internet Issue">Network/Internet Issue</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Incident Details</label>
+                    <textarea id="desc" rows="2" placeholder="Brief technical details..."></textarea>
+                </div>
+                <button class="btn-submit" onclick="handleOpenSubmit()">GENERATE TICKET</button>
+            `;
+        } else {
+            btnO.className = 'tab-btn';
+            btnC.className = 'tab-btn active-tab';
+            body.innerHTML = `
+                <div class="form-group">
+                    <label>Ticket ID</label>
+                    <input type="text" id="tkRef" placeholder="SAI-TK-XXXX">
+                </div>
+                <div class="form-group">
+                    <label>Service Rating</label>
+                    <div class="stars">
+                        <span class="star" onclick="setStar(1)">★</span><span class="star" onclick="setStar(2)">★</span><span class="star" onclick="setStar(3)">★</span><span class="star" onclick="setStar(4)">★</span><span class="star" onclick="setStar(5)">★</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Closing Feedback</label>
+                    <textarea id="feedback" rows="3" placeholder="Feedback on service quality..."></textarea>
+                </div>
+                <button class="btn-submit" style="background:var(--secondary);" onclick="handleCloseSubmit()">CLOSE & VERIFY</button>
+            `;
+        }
+    }
+
+    function setStar(n) {
+        rating = n;
+        document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('selected', i < n));
+    }
+
+    function handleOpenSubmit() {
+        const n = document.getElementById('name').value;
+        const p = document.getElementById('phone').value;
+        const l = document.getElementById('location').value;
+        const c = document.getElementById('category').value;
+        const d = document.getElementById('desc').value;
+        const ts = getTime();
+        const id = "SAI-TK-" + (Math.floor(Math.random() * 9000) + 1000);
+
+        if(!n || !p || !l || !c || !d) { alert("MANDATORY: All fields are required."); return; }
+
+        const text = `*NEW SERVICE TICKET*%0A--------------------------%0A*Ticket ID:* ${id}%0A*Site:* ${l}%0A*Customer:* ${n}%0A*Contact:* ${p}%0A*Category:* ${c}%0A*Problem:* ${d}%0A*Stamp:* ${ts}%0A--------------------------%0A_Generated via Sai Portal_`;
+        
+        window.open(`https://wa.me/${WHATSAPP_TARGET}?text=${text}`, '_blank');
+        showFinal(id, ts, "Ticket Initialized", p);
+    }
+
+    function handleCloseSubmit() {
+        const t = document.getElementById('tkRef').value;
+        const f = document.getElementById('feedback').value;
+        const ts = getTime();
+
+        if(!t || !f || rating === 0) { alert("MANDATORY: Ticket ID, Rating, and Feedback required."); return; }
+
+        const text = `*TICKET CLOSED REPORT*%0A--------------------------%0A*Ticket ID:* ${t}%0A*Rating:* ${rating}/5 Stars%0A*Feedback:* ${f}%0A*Closed:* ${ts}%0A--------------------------%0A_SCS Quality Verified_`;
+        
+        window.open(`https://wa.me/${WHATSAPP_TARGET}?text=${text}`, '_blank');
+        showFinal(t, ts, "Service Closed", null, true);
+    }
+
+    function showFinal(id, ts, status, userPhone, isClose = false) {
+        const mobileNotice = !isClose ? `
+            <div class="mobile-alert">
+                <span>📱</span> TICKET LOGGED TO ${userPhone}
+            </div>
+        ` : '';
+
+        document.getElementById('portalCard').innerHTML = `
+            <div style="text-align:center; animation: fadeIn 0.5s ease;">
+                <div style="font-size:45px; margin-bottom:10px;">${isClose ? '💎' : '✅'}</div>
+                <h2 style="color:var(--text-main); margin-bottom:15px;">${status}</h2>
+                
+                ${mobileNotice}
+
+                <div class="receipt">
+                    <p style="font-size:10px; font-weight:800; color:var(--text-light); margin-bottom:5px;">OFFICIAL RECEIPT</p>
+                    <div class="ticket-id">${id}</div>
+                    <hr style="margin:15px 0; border:0; border-top:1px solid #e2e8f0;">
+                    <p style="font-size:10px; font-weight:800; color:var(--text-light);">TRANSACTION TIMESTAMP</p>
+                    <p style="font-size:12px; font-weight:600;">${ts}</p>
+                </div>
+
+                <p style="font-size:11px; color:var(--text-light); margin-bottom:20px;">
+                    Technician will contact you shortly on your WhatsApp number.
+                </p>
+
+                <button class="btn-submit" onclick="location.reload()">Return Home</button>
+            </div>
+        `;
+    }
+
+    showForm('open');
+</script>
 </body>
 </html>
