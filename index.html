@@ -3,241 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Support | Sai Computer Service</title>
+    <title>SCS Master Portal | Sai Computer Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #4f46e5;
             --secondary: #10b981;
-            --bg-dark: #0f172a;
+            --warning: #f59e0b;
+            --error: #ef4444;
             --glass: rgba(255, 255, 255, 0.98);
             --text-main: #1e293b;
             --text-light: #64748b;
-            --error: #ef4444;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: radial-gradient(circle at top left, #4f46e5, #0f172a);
             background-attachment: fixed;
-            display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
         }
-
+        
         .portal-card { 
-            width: 100%; max-width: 500px; background: var(--glass); 
+            width: 100%; max-width: 550px; background: var(--glass); 
             padding: 35px; border-radius: 32px; 
             box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.4s ease-out;
         }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .header { text-align: center; margin-bottom: 25px; }
-        .logo-area { font-weight: 800; font-size: 22px; color: var(--primary); letter-spacing: -1px; }
-        .status-badge { background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 8px; display: inline-block; }
+        .logo-area { font-weight: 800; font-size: 24px; color: var(--primary); letter-spacing: -1px; }
+        .status-badge { background: #f1f5f9; color: #475569; padding: 5px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 10px; display: inline-block; }
 
-        .tab-nav { display: flex; background: #f1f5f9; padding: 6px; border-radius: 16px; margin-bottom: 25px; }
-        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.3s; color: var(--text-light); }
+        .tab-nav { display: flex; background: #f1f5f9; padding: 6px; border-radius: 16px; margin-bottom: 25px; gap: 4px; overflow-x: auto; }
+        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.3s; color: var(--text-light); white-space: nowrap; }
         .active-tab { background: white; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-size: 10px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px;}
-        label::after { content: " *"; color: var(--error); }
-
-        input, textarea, select { 
-            width: 100%; padding: 12px; border: 2px solid #f1f5f9; border-radius: 12px; 
-            font-size: 14px; background: #f8fafc; transition: 0.2s; font-family: inherit;
-        }
-
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 10px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
+        label.required::after { content: " *"; color: var(--error); }
+        
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #f1f5f9; border-radius: 14px; font-size: 14px; background: #f8fafc; transition: 0.2s; font-family: inherit; }
         input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); background: #fff; }
 
-        .btn-submit { 
-            background: var(--primary); color: white; padding: 16px; border: none; 
-            border-radius: 16px; width: 100%; font-size: 15px; font-weight: 700; 
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
-        }
+        .btn-submit { background: var(--primary); color: white; padding: 16px; border: none; border-radius: 16px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; }
 
-        /* Success/Mobile Message Simulation */
-        .receipt { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 20px; border-radius: 20px; margin: 20px 0; text-align: center; }
-        .ticket-id { font-size: 24px; font-weight: 800; color: var(--primary); font-family: monospace; }
-        .mobile-alert { background: #dcfce7; color: #166534; padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .list-item { background: #f8fafc; border-radius: 20px; padding: 18px; margin-bottom: 12px; border: 1px solid #e2e8f0; }
+        .item-header { display: flex; justify-content: space-between; align-items: center; }
+        .item-title { font-weight: 800; font-size: 13px; color: var(--primary); }
+        .item-status { font-size: 9px; padding: 4px 10px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
+        
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-progress { background: #e0e7ff; color: #4338ca; }
+        .status-resolved { background: #dcfce7; color: #166534; }
 
-        .stars { display: flex; gap: 8px; justify-content: center; margin-bottom: 15px; }
-        .star { font-size: 30px; color: #e2e8f0; cursor: pointer; }
-        .star.selected { color: #fbbf24; }
+        .time-info { font-size: 9px; color: var(--text-light); margin-top: 5px; display: flex; flex-direction: column; gap: 2px; }
 
-        .footer { margin-top: 25px; text-align: center; color: var(--text-light); font-size: 11px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+        .action-group { display: flex; gap: 5px; margin-top: 10px; border-top: 1px solid #edf2f7; padding-top: 10px; }
+        .btn-mini { font-size: 10px; padding: 6px 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
+
+        .footer { margin-top: 30px; text-align: center; color: var(--text-light); font-size: 11px; border-top: 1px solid #f1f5f9; padding-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="portal-card" id="portalCard">
-    <div class="header">
-        <div class="logo-area">SAI COMPUTER SERVICE</div>
-        <span class="status-badge">Professional Support Hub</span>
-    </div>
-
-    <div class="tab-nav">
-        <button class="tab-btn active-tab" id="tabOpen" onclick="showForm('open')">New Ticket</button>
-        <button class="tab-btn" id="tabClose" onclick="showForm('close')">Close Ticket</button>
-    </div>
-
-    <div id="formBody">
-        </div>
-
-    <div class="footer">
-        © 2026 Sai Computer Services | Support Desk
-    </div>
-</div>
+<div id="app"></div>
 
 <script>
-    let rating = 0;
-    const WHATSAPP_TARGET = "918700032815";
+    const WHATSAPP = "918700032815";
+    
+    let USER_DB = JSON.parse(localStorage.getItem('sai_users_final')) || {
+        "KGO": { pass: "KGO@278", phone: "8700032815", role: "Admin", status: "Active" },
+        "Super": { pass: "Sai@9787", phone: "8700032815", role: "Master", status: "Active" }
+    };
 
-    function getTime() { 
-        return new Date().toLocaleString('en-IN', { 
-            dateStyle: 'medium', 
-            timeStyle: 'short', 
-            timeZone: 'Asia/Kolkata' 
-        }); 
+    let TICKETS = JSON.parse(localStorage.getItem('sai_tickets_final')) || [];
+
+    let currentUser = "";
+    const app = document.getElementById('app');
+
+    const saveDB = () => localStorage.setItem('sai_users_final', JSON.stringify(USER_DB));
+    const saveTickets = () => localStorage.setItem('sai_tickets_final', JSON.stringify(TICKETS));
+
+    function getNow() {
+        return new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
     }
 
-    function showForm(type) {
-        const body = document.getElementById('formBody');
-        const btnO = document.getElementById('tabOpen');
-        const btnC = document.getElementById('tabClose');
+    function renderLogin() {
+        app.innerHTML = `
+            <div class="portal-card">
+                <div class="header"><div class="logo-area">SAI COMPUTER SERVICES</div><span class="status-badge">System Login</span></div>
+                <div class="form-group"><label class="required">Username</label><input type="text" id="uIn"></div>
+                <div class="form-group"><label class="required">Password</label><input type="password" id="pIn"></div>
+                <button class="btn-submit" onclick="handleLogin()">Login</button>
+                <div style="text-align:center; margin-top:15px;"><a onclick="renderRegister()" style="font-size:12px; color:var(--primary); cursor:pointer; font-weight:600;">Request Access</a></div>
+            </div>`;
+    }
 
-        if(type === 'open') {
-            btnO.className = 'tab-btn active-tab';
-            btnC.className = 'tab-btn';
-            body.innerHTML = `
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="name" placeholder="E.g. Tosh Kumar">
+    function renderRegister() {
+        app.innerHTML = `
+            <div class="portal-card">
+                <div class="header"><div class="logo-area">SAI COMPUTER SERVICES</div><span class="status-badge">User Registration</span></div>
+                <div class="form-group"><label class="required">Desired Username</label><input type="text" id="uReg"></div>
+                <div class="form-group"><label class="required">Mobile Number</label><input type="tel" id="phReg" placeholder="10-digit mobile"></div>
+                <div class="form-group"><label class="required">Password</label><input type="password" id="pReg"></div>
+                <button class="btn-submit" onclick="handleRegister()">Register Account</button>
+                <div style="text-align:center; margin-top:15px;"><a onclick="renderLogin()" style="font-size:12px; color:var(--text-light); cursor:pointer;">Back to Login</a></div>
+            </div>`;
+    }
+
+    function renderMain(tab = 'track') {
+        const user = USER_DB[currentUser];
+        const isAdmin = user.role !== "Standard User";
+        
+        app.innerHTML = `
+            <div class="portal-card">
+                <div class="header">
+                    <div class="logo-area">SAI COMPUTER SERVICE</div>
+                    <span class="status-badge" style="color:var(--secondary)">User: ${currentUser} (${user.role})</span>
                 </div>
-                <div class="form-group">
-                    <label>WhatsApp Number</label>
-                    <input type="tel" id="phone" placeholder="+91">
+                <div class="tab-nav">
+                    <button class="tab-btn ${tab==='track'?'active-tab':''}" onclick="renderMain('track')">Track</button>
+                    <button class="tab-btn ${tab==='open'?'active-tab':''}" onclick="renderMain('open')">New Ticket</button>
+                    ${isAdmin ? `<button class="tab-btn ${tab==='users'?'active-tab':''}" onclick="renderMain('users')">Manage Users</button>` : ''}
+                    <button class="tab-btn" onclick="location.reload()" style="color:var(--error)">Logout</button>
                 </div>
-                <div class="form-group">
-                    <label>Site Location</label>
-                    <select id="location">
-                        <option value="">-- Select Site --</option>
-                        <option value="Lawrence Road DL">Lawrence Road DL</option>
-                        <option value="Gurukul HR">Gurukul HR</option>
-                        <option value="Urban HR">Urban HR</option>
-                        <option value="Kawari UP">Kawari UP</option>
-                        <option value="Ajori UP">Ajori UP</option>
-                        <option value="Guriya Pech UP">Guriya Pech UP</option>
+                <div id="content"></div>
+                <div class="footer">© 2026 Sai Computer Services</div>
+            </div>`;
+        injectTabContent(tab, isAdmin);
+    }
+
+    function injectTabContent(tab, isAdmin) {
+        const div = document.getElementById('content');
+        
+        if (tab === 'open') {
+            div.innerHTML = `
+                <div class="form-group"><label class="required">Site</label>
+                    <select id="site">
+                        <option value="">Select options</option><option>Lawrence Road DL</option><option>Gurukul HR</option><option>Urban HR</option>
+                        <option>Kalwari UP</option><option>Ajori UP</option><option>Guriya Pech UP</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Issue Category</label>
-                    <select id="category">
-                        <option value="">-- Select Category --</option>
-                        <option value="Server Issue">Server Issue</option>
-                        <option value="Thin Client Issue">Thin Client Issue</option>
-                        <option value="Monitor Issue">Monitor Issue</option>
-                        <option value="Printer Issue">Printer Issue</option>
-                        <option value="Network/Internet Issue">Network/Internet Issue</option>
+                <div class="form-group"><label class="required">Category</label>
+                    <select id="cat">
+                        <option value="">Select options</option><option>Server Issue</option><option>Thin Client Issue</option><option>Monitor Issue</option>
+                        <option>Printer Issue</option><option>Network/Internet Issue</option><option>CCTV Issue</option><option>Biometric Issue</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Incident Details</label>
-                    <textarea id="desc" rows="2" placeholder="Brief technical details..."></textarea>
-                </div>
-                <button class="btn-submit" onclick="handleOpenSubmit()">GENERATE TICKET</button>
-            `;
-        } else {
-            btnO.className = 'tab-btn';
-            btnC.className = 'tab-btn active-tab';
-            body.innerHTML = `
-                <div class="form-group">
-                    <label>Ticket ID</label>
-                    <input type="text" id="tkRef" placeholder="SAI-TK-XXXX">
-                </div>
-                <div class="form-group">
-                    <label>Service Rating</label>
-                    <div class="stars">
-                        <span class="star" onclick="setStar(1)">★</span><span class="star" onclick="setStar(2)">★</span><span class="star" onclick="setStar(3)">★</span><span class="star" onclick="setStar(4)">★</span><span class="star" onclick="setStar(5)">★</span>
+                <div class="form-group"><label class="required">Details</label><textarea id="issue" rows="3" placeholder="Describe the problem..."></textarea></div>
+                <button class="btn-submit" onclick="createTicket()">Submit Ticket</button>`;
+        } 
+        else if (tab === 'track') {
+            let visibleTickets = isAdmin ? [...TICKETS] : TICKETS.filter(t => t.user === currentUser);
+            let list = visibleTickets.length === 0 ? '<p style="text-align:center; font-size:12px; color:var(--text-light); margin:20px 0;">No active tickets.</p>' : '';
+            
+            visibleTickets.reverse().forEach((tk) => {
+                const rIdx = TICKETS.findIndex(t => t.id === tk.id);
+                list += `
+                    <div class="list-item">
+                        <div class="item-header"><span class="item-title">${tk.id}</span><span class="item-status status-${tk.status}">${tk.status}</span></div>
+                        <p style="font-size:12px;"><b>${tk.site}:</b> ${tk.desc}</p>
+                        <div class="time-info">
+                            <span><b>Opened:</b> ${tk.openedAt}</span>
+                            ${tk.closedAt ? `<span><b>Closed:</b> ${tk.closedAt}</span>` : ''}
+                            <span><b>Reported by:</b> ${tk.user}</span>
+                        </div>
+                        <div class="action-group">
+                            ${isAdmin && tk.status !== 'resolved' ? `<button class="btn-mini" style="background:#e0e7ff;" onclick="updateStatus(${rIdx}, 'progress')">Working</button>` : ''}
+                            ${tk.status !== 'resolved' ? `<button class="btn-mini" style="background:#dcfce7; color:#166534;" onclick="resolveTicket(${rIdx})">Resolve / Close</button>` : ''}
+                            ${isAdmin ? `<button class="btn-mini" style="background:#fee2e2; color:#b91c1c;" onclick="deleteTicket(${rIdx})">Delete</button>` : ''}
+                        </div>
+                    </div>`;
+            });
+            div.innerHTML = list;
+        } 
+        else if (tab === 'users') {
+            let userList = '';
+            for(let u in USER_DB) {
+                if(u === currentUser || (currentUser === "KGO" && u === "Super")) continue;
+                const blocked = USER_DB[u].status === "Blocked";
+                userList += `<div class="list-item" style="opacity:${blocked?0.5:1}">
+                    <div class="item-header">
+                        <b>${u} (${USER_DB[u].role})</b>
+                        <div class="action-group" style="margin:0; border:0; padding:0;">
+                            <button onclick="resetPass('${u}')" class="btn-mini">🔑</button>
+                            <button onclick="toggleBlock('${u}')" class="btn-mini">${blocked?'🔓':'🚫'}</button>
+                            <button onclick="deleteUser('${u}')" class="btn-mini">🗑️</button>
+                        </div>
                     </div>
+                    <div class="time-info" style="margin-top:5px;">
+                        <span>📞 Phone: ${USER_DB[u].phone}</span>
+                    </div>
+                </div>`;
+            }
+            div.innerHTML = `
+                <div style="background:#f1f5f9; padding:15px; border-radius:20px; margin-bottom:15px;">
+                    <label>Add Member</label>
+                    <div class="form-group"><label class="required">Username</label><input type="text" id="addU" placeholder="User"></div>
+                    <div class="form-group"><label class="required">Mobile Number</label><input type="tel" id="addPh" placeholder="Mobile"></div>
+                    <div class="form-group"><label class="required">Password</label><input type="text" id="addP" placeholder="Pass"></div>
+                    <div class="form-group">
+                        <label class="required">Role</label>
+                        <select id="addR">
+                            <option value="Standard User">Standard User</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <button class="btn-submit" onclick="addNewUser()">Create User</button>
                 </div>
-                <div class="form-group">
-                    <label>Closing Feedback</label>
-                    <textarea id="feedback" rows="3" placeholder="Feedback on service quality..."></textarea>
-                </div>
-                <button class="btn-submit" style="background:var(--secondary);" onclick="handleCloseSubmit()">CLOSE & VERIFY</button>
-            `;
+                ${userList}`;
         }
     }
 
-    function setStar(n) {
-        rating = n;
-        document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('selected', i < n));
+    function handleLogin() {
+        const u = document.getElementById('uIn').value;
+        const p = document.getElementById('pIn').value;
+        if(!u || !p) return alert("Please enter both username and password.");
+        if(USER_DB[u] && USER_DB[u].pass === p) {
+            if(USER_DB[u].status === "Blocked") return alert("Account Blocked. Please contact support.");
+            currentUser = u; renderMain();
+        } else alert("Invalid username or password.");
     }
 
-    function handleOpenSubmit() {
-        const n = document.getElementById('name').value;
-        const p = document.getElementById('phone').value;
-        const l = document.getElementById('location').value;
-        const c = document.getElementById('category').value;
-        const d = document.getElementById('desc').value;
-        const ts = getTime();
-        const id = "SAI-TK-" + (Math.floor(Math.random() * 9000) + 1000);
+    function handleRegister() {
+        const u = document.getElementById('uReg').value;
+        const ph = document.getElementById('phReg').value;
+        const p = document.getElementById('pReg').value;
+        if(!u || !p || !ph) return alert("MANDATORY: All fields must be filled.");
+        if(USER_DB[u]) return alert("Username already exists.");
+        USER_DB[u] = { pass: p, phone: ph, role: "Standard User", status: "Active" };
+        saveDB(); alert("Account Created! You can login now."); renderLogin();
+    }
 
-        if(!n || !p || !l || !c || !d) { alert("MANDATORY: All fields are required."); return; }
+    function addNewUser() {
+        const u = document.getElementById('addU').value;
+        const ph = document.getElementById('addPh').value;
+        const p = document.getElementById('addP').value;
+        const r = document.getElementById('addR').value;
+        if(!u || !p || !ph) return alert("MANDATORY: Username, Mobile, and Password are required.");
+        USER_DB[u] = { pass: p, phone: ph, role: r, status: "Active" };
+        saveDB(); renderMain('users');
+    }
 
-        const text = `*NEW SERVICE TICKET*%0A--------------------------%0A*Ticket ID:* ${id}%0A*Site:* ${l}%0A*Customer:* ${n}%0A*Contact:* ${p}%0A*Category:* ${c}%0A*Problem:* ${d}%0A*Stamp:* ${ts}%0A--------------------------%0A_Generated via Sai Portal_`;
+    function createTicket() {
+        const s = document.getElementById('site').value;
+        const c = document.getElementById('cat').value;
+        const i = document.getElementById('issue').value;
+        const id = "SAI-TK-" + Math.floor(1000 + Math.random() * 9000);
+        const time = getNow();
+        if(!s || !c || !i) return alert("MANDATORY: Please select Site, Category and enter issue Details.");
         
-        window.open(`https://wa.me/${WHATSAPP_TARGET}?text=${text}`, '_blank');
-        showFinal(id, ts, "Ticket Initialized", p);
+        TICKETS.push({ id, site: s, desc: i, cat: c, user: currentUser, status: "pending", openedAt: time, closedAt: null });
+        saveTickets();
+        window.open(`https://wa.me/${WHATSAPP}?text=*NEW TICKET* ID: ${id}%0A*Site:* ${s}%0A*Cat:* ${c}%0A*Issue:* ${i}%0A*Time:* ${time}`, '_blank');
+        renderMain('track');
     }
 
-    function handleCloseSubmit() {
-        const t = document.getElementById('tkRef').value;
-        const f = document.getElementById('feedback').value;
-        const ts = getTime();
-
-        if(!t || !f || rating === 0) { alert("MANDATORY: Ticket ID, Rating, and Feedback required."); return; }
-
-        const text = `*TICKET CLOSED REPORT*%0A--------------------------%0A*Ticket ID:* ${t}%0A*Rating:* ${rating}/5 Stars%0A*Feedback:* ${f}%0A*Closed:* ${ts}%0A--------------------------%0A_SCS Quality Verified_`;
-        
-        window.open(`https://wa.me/${WHATSAPP_TARGET}?text=${text}`, '_blank');
-        showFinal(t, ts, "Service Closed", null, true);
+    function updateStatus(idx, status) { TICKETS[idx].status = status; saveTickets(); renderMain('track'); }
+    function resolveTicket(idx) {
+        TICKETS[idx].status = 'resolved';
+        TICKETS[idx].closedAt = getNow();
+        saveTickets();
+        const tk = TICKETS[idx];
+        window.open(`https://wa.me/${WHATSAPP}?text=*TICKET RESOLVED* ID: ${tk.id}%0A*Closed At:* ${tk.closedAt}`, '_blank');
+        renderMain('track');
     }
+    function deleteTicket(idx) { if(confirm("Are you sure you want to delete this ticket?")) { TICKETS.splice(idx, 1); saveTickets(); renderMain('track'); } }
+    function toggleBlock(u) { USER_DB[u].status = (USER_DB[u].status === "Active" ? "Blocked" : "Active"); saveDB(); renderMain('users'); }
+    function deleteUser(u) { if(confirm("Are you sure you want to delete this user?")) { delete USER_DB[u]; saveDB(); renderMain('users'); } }
+    function resetPass(u) { const p = prompt(`Enter new password for ${u}:`, USER_DB[u].pass); if(p) { USER_DB[u].pass = p; saveDB(); renderMain('users'); } }
 
-    function showFinal(id, ts, status, userPhone, isClose = false) {
-        const mobileNotice = !isClose ? `
-            <div class="mobile-alert">
-                <span>📱</span> TICKET LOGGED TO ${userPhone}
-            </div>
-        ` : '';
-
-        document.getElementById('portalCard').innerHTML = `
-            <div style="text-align:center; animation: fadeIn 0.5s ease;">
-                <div style="font-size:45px; margin-bottom:10px;">${isClose ? '💎' : '✅'}</div>
-                <h2 style="color:var(--text-main); margin-bottom:15px;">${status}</h2>
-                
-                ${mobileNotice}
-
-                <div class="receipt">
-                    <p style="font-size:10px; font-weight:800; color:var(--text-light); margin-bottom:5px;">OFFICIAL RECEIPT</p>
-                    <div class="ticket-id">${id}</div>
-                    <hr style="margin:15px 0; border:0; border-top:1px solid #e2e8f0;">
-                    <p style="font-size:10px; font-weight:800; color:var(--text-light);">TRANSACTION TIMESTAMP</p>
-                    <p style="font-size:12px; font-weight:600;">${ts}</p>
-                </div>
-
-                <p style="font-size:11px; color:var(--text-light); margin-bottom:20px;">
-                    Technician will contact you shortly on your WhatsApp number.
-                </p>
-
-                <button class="btn-submit" onclick="location.reload()">Return Home</button>
-            </div>
-        `;
-    }
-
-    showForm('open');
+    renderLogin();
 </script>
 </body>
 </html>
