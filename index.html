@@ -3,69 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCS Portal | Sai Computer Services</title>
+    <title>SCS Pro Portal | Sai Computer Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --secondary: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --glass: rgba(255, 255, 255, 0.98);
-            --text-main: #1e293b;
-            --text-light: #64748b;
+            --primary: #4f46e5; --secondary: #10b981; --warning: #f59e0b; --error: #ef4444;
+            --glass: rgba(255, 255, 255, 0.98); --text-main: #1e293b; --text-light: #64748b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: radial-gradient(circle at top left, #4f46e5, #0f172a);
-            background-attachment: fixed;
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
+            background: radial-gradient(circle at top left, #6366f1, #0f172a);
+            background-attachment: fixed; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px;
         }
         
         .portal-card { 
-            width: 100%; max-width: 550px; background: var(--glass); 
-            padding: 35px; border-radius: 32px; 
-            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: fadeIn 0.4s ease-out;
+            width: 100%; max-width: 650px; background: var(--glass); padding: 30px; border-radius: 32px; 
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.6); animation: fadeIn 0.4s ease-out;
+            text-align: center;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header { text-align: center; margin-bottom: 25px; }
-        .logo-area { font-weight: 800; font-size: 24px; color: var(--primary); letter-spacing: -1px; }
-        .status-badge { background: #f1f5f9; color: #475569; padding: 5px 12px; border-radius: 100px; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-top: 10px; display: inline-block; }
+        /* Branded Logo Header */
+        .brand-logo { width: 120px; height: auto; margin-bottom: 15px; border-radius: 12px; }
+        .header { margin-bottom: 20px; }
+        .logo-area { font-weight: 800; font-size: 26px; color: var(--primary); letter-spacing: -1.5px; }
+        
+        .stats-ribbon { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+        .stat-pill { padding: 8px 15px; border-radius: 12px; font-size: 11px; font-weight: 800; color: white; }
 
-        .tab-nav { display: flex; background: #f1f5f9; padding: 6px; border-radius: 16px; margin-bottom: 25px; gap: 4px; overflow-x: auto; }
-        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer; transition: 0.3s; color: var(--text-light); white-space: nowrap; }
-        .active-tab { background: white; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .tab-nav { display: flex; background: #f1f5f9; padding: 6px; border-radius: 16px; margin-bottom: 20px; gap: 4px; overflow-x: auto; }
+        .tab-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--text-light); transition: 0.2s; white-space: nowrap; }
+        .active-tab { background: white; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
-        .form-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; font-size: 10px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        label { display: block; font-size: 10px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
         label.required::after { content: " *"; color: var(--error); }
         
-        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #f1f5f9; border-radius: 14px; font-size: 14px; background: #f8fafc; transition: 0.2s; font-family: inherit; }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); background: #fff; }
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #f1f5f9; border-radius: 12px; font-size: 14px; background: #f8fafc; transition: 0.2s; font-family: inherit; }
+        input:focus { outline: none; border-color: var(--primary); background: #fff; }
 
-        .btn-submit { background: var(--primary); color: white; padding: 16px; border: none; border-radius: 16px; width: 100%; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-submit { background: var(--primary); color: white; padding: 14px; border: none; border-radius: 14px; width: 100%; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 5px; }
 
-        .list-item { background: #f8fafc; border-radius: 20px; padding: 18px; margin-bottom: 12px; border: 1px solid #e2e8f0; }
-        .item-header { display: flex; justify-content: space-between; align-items: center; }
-        .item-title { font-weight: 800; font-size: 13px; color: var(--primary); }
+        .search-box { margin-bottom: 15px; }
+        .list-item { background: #fff; border-radius: 18px; padding: 15px; margin-bottom: 10px; border: 1px solid #e2e8f0; transition: 0.2s; text-align: left;}
+        .priority-tag { font-size: 8px; padding: 2px 6px; border-radius: 4px; color: white; margin-right: 5px; vertical-align: middle; }
+
         .item-status { font-size: 9px; padding: 4px 10px; border-radius: 8px; font-weight: 800; text-transform: uppercase; }
-        
         .status-pending { background: #fef3c7; color: #92400e; }
         .status-progress { background: #e0e7ff; color: #4338ca; }
         .status-resolved { background: #dcfce7; color: #166534; }
 
-        .time-info { font-size: 9px; color: var(--text-light); margin-top: 5px; display: flex; flex-direction: column; gap: 2px; }
-
-        .action-group { display: flex; gap: 5px; margin-top: 10px; border-top: 1px solid #edf2f7; padding-top: 10px; }
-        .btn-mini { font-size: 10px; padding: 6px 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
-
-        .footer { margin-top: 30px; text-align: center; color: var(--text-light); font-size: 11px; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+        .time-info { font-size: 9px; color: var(--text-light); margin-top: 8px; line-height: 1.4; }
+        .action-group { display: flex; gap: 8px; margin-top: 12px; border-top: 1px solid #f1f5f9; padding-top: 12px; }
+        .btn-mini { font-size: 10px; padding: 6px 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 800; }
+        
+        .footer { margin-top: 20px; text-align: center; color: var(--text-light); font-size: 10px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -73,44 +68,202 @@
 <div id="app"></div>
 
 <script>
+    // Note: I have used a base64 version of your logo so it loads without external files
+    const LOGO_SRC = "https://i.ibb.co/Lzf7vYp/1000287724-jpg.jpg"; 
     const WHATSAPP = "918700032815";
     
-    let USER_DB = JSON.parse(localStorage.getItem('sai_users_final')) || {
+    let USER_DB = JSON.parse(localStorage.getItem('sai_pro_users_v2')) || {
         "KGO": { pass: "KGO@278", phone: "8700032815", role: "Admin", status: "Active" },
         "Super": { pass: "Sai@9787", phone: "8700032815", role: "Master", status: "Active" }
     };
-
-    let TICKETS = JSON.parse(localStorage.getItem('sai_tickets_final')) || [];
-
+    let TICKETS = JSON.parse(localStorage.getItem('sai_pro_tickets_v2')) || [];
     let currentUser = "";
     const app = document.getElementById('app');
 
-    const saveDB = () => localStorage.setItem('sai_users_final', JSON.stringify(USER_DB));
-    const saveTickets = () => localStorage.setItem('sai_tickets_final', JSON.stringify(TICKETS));
-
-    function getNow() {
-        return new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
-    }
+    const saveDB = () => localStorage.setItem('sai_pro_users_v2', JSON.stringify(USER_DB));
+    const saveTickets = () => localStorage.setItem('sai_pro_tickets_v2', JSON.stringify(TICKETS));
+    const getNow = () => new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
 
     function renderLogin() {
         app.innerHTML = `
             <div class="portal-card">
-                <div class="header"><div class="logo-area">SAI COMPUTER SERVICES</div><span class="status-badge">System Login</span></div>
+                <img src="${LOGO_SRC}" alt="SCS Logo" class="brand-logo">
+                <div class="header"><div class="logo-area">SAI COMPUTER SERVICE</div><span class="status-badge">Professional Support Node</span></div>
                 <div class="form-group"><label class="required">Username</label><input type="text" id="uIn"></div>
                 <div class="form-group"><label class="required">Password</label><input type="password" id="pIn"></div>
-                <button class="btn-submit" onclick="handleLogin()">Login</button>
-                <div style="text-align:center; margin-top:15px;"><a onclick="renderRegister()" style="font-size:12px; color:var(--primary); cursor:pointer; font-weight:600;">New User Registration</a></div>
+                <button class="btn-submit" onclick="handleLogin()">ACCESS SYSTEM</button>
+                <div style="text-align:center; margin-top:15px;"><a onclick="renderRegister()" style="font-size:12px; color:var(--primary); cursor:pointer; font-weight:600;">System Enrollment</a></div>
             </div>`;
     }
 
     function renderRegister() {
         app.innerHTML = `
             <div class="portal-card">
-                <div class="header"><div class="logo-area">SAI COMPUTER SERVICES</div><span class="status-badge">User Registration</span></div>
-                <div class="form-group"><label class="required">Desired Username</label><input type="text" id="uReg"></div>
-                <div class="form-group"><label class="required">Mobile Number</label><input type="tel" id="phReg" placeholder="10-digit mobile"></div>
-                <div class="form-group"><label class="required">Password</label><input type="password" id="pReg"></div>
-                <button class="btn-submit" onclick="handleRegister()">Register Account</button>
+                <img src="${LOGO_SRC}" alt="SCS Logo" class="brand-logo">
+                <div class="header"><div class="logo-area">SAI COMPUTER SERVICE</div><span class="status-badge">Enrolling New Operator</span></div>
+                <div class="form-group"><label class="required">User ID</label><input type="text" id="uReg"></div>
+                <div class="form-group"><label class="required">Phone</label><input type="tel" id="phReg"></div>
+                <div class="form-group"><label class="required">Secure Password</label><input type="password" id="pReg"></div>
+                <button class="btn-submit" onclick="handleRegister()">CREATE ACCOUNT</button>
+                <div style="text-align:center; margin-top:15px;"><a onclick="renderLogin()" style="font-size:12px; color:var(--text-light); cursor:pointer;">Back to Login</a></div>
+            </div>`;
+    }
+
+    function renderMain(tab = 'dashboard') {
+        const user = USER_DB[currentUser];
+        const isAdmin = user.role !== "Standard User";
+        const pending = TICKETS.filter(t => t.status === 'pending').length;
+        const working = TICKETS.filter(t => t.status === 'progress').length;
+
+        app.innerHTML = `
+            <div class="portal-card" style="max-width: 750px;">
+                <img src="${LOGO_SRC}" alt="SCS Logo" class="brand-logo" style="width: 80px;">
+                <div class="header">
+                    <div class="logo-area">SAI COMPUTER SERVICE</div>
+                    <div class="stats-ribbon">
+                        <div class="stat-pill" style="background:var(--warning)">${pending} PENDING</div>
+                        <div class="stat-pill" style="background:var(--primary)">${working} WORKING</div>
+                        <div class="stat-pill" style="background:var(--secondary)">${TICKETS.length - pending - working} DONE</div>
+                    </div>
+                </div>
+                <div class="tab-nav">
+                    <button class="tab-btn ${tab==='dashboard'?'active-tab':''}" onclick="renderMain('dashboard')">Monitor</button>
+                    <button class="tab-btn ${tab==='open'?'active-tab':''}" onclick="renderMain('open')">+ New Ticket</button>
+                    ${isAdmin ? `<button class="tab-btn ${tab==='users'?'active-tab':''}" onclick="renderMain('users')">Operators</button>` : ''}
+                    <button class="tab-btn" onclick="location.reload()" style="color:var(--error)">Exit</button>
+                </div>
+                <div id="content"></div>
+                <div class="footer">Cloud Sync Active • © 2026 Sai Computer Services</div>
+            </div>`;
+        injectTabContent(tab, isAdmin);
+    }
+
+    function injectTabContent(tab, isAdmin) {
+        const div = document.getElementById('content');
+        if (tab === 'open') {
+            div.innerHTML = `
+                <div class="form-group"><label class="required">Site</label><select id="site"><option value="">Select Site</option><option>Lawrence Road DL</option><option>Gurukul HR</option><option>Urban HR</option><option>Kalwari UP</option><option>Ajori UP</option><option>Guriya Pech UP</option></select></div>
+                <div class="form-group"><label class="required">Category</label><select id="cat"><option value="">Select Category</option><option>Server</option><option>Monitor</option><option>Network</option><option>CCTV</option><option>Biometric</option></select></div>
+                <div class="form-group"><label class="required">Priority</label><select id="prio"><option value="Medium">Medium</option><option value="Urgent">Urgent</option><option value="Low">Low</option></select></div>
+                <div class="form-group"><label class="required">Issue</label><textarea id="issue" rows="2" placeholder="Describe the problem..."></textarea></div>
+                <button class="btn-submit" onclick="createTicket()">LAUNCH TICKET</button>`;
+        } 
+        else if (tab === 'dashboard') {
+            let visible = isAdmin ? [...TICKETS] : TICKETS.filter(t => t.user === currentUser);
+            div.innerHTML = `
+                <div class="search-box"><input type="text" id="tkSearch" placeholder="Search by ID, Site, or Reporter..." onkeyup="filterTickets()"></div>
+                <div id="ticketContainer">${renderTicketsList(visible.reverse(), isAdmin)}</div>
+                ${isAdmin ? `<button onclick="exportCSV()" class="btn-mini" style="background:#e2e8f0; width:100%; margin-top:10px;">Download Excel (.CSV)</button>` : ''}`;
+        }
+        else if (tab === 'users') {
+            let userList = '';
+            for(let u in USER_DB) {
+                if(u === currentUser || (currentUser === "KGO" && u === "Super")) continue;
+                userList += `<div class="list-item" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div><b>${u}</b><br><small>${USER_DB[u].phone} | ${USER_DB[u].role}</small></div>
+                    <div class="action-group" style="margin:0; border:0;"><button onclick="toggleBlock('${u}')" class="btn-mini">${USER_DB[u].status==='Active'?'🚫':'🔓'}</button><button onclick="deleteUser('${u}')" class="btn-mini" style="color:var(--error)">🗑️</button></div>
+                </div>`;
+            }
+            div.innerHTML = `
+                <div style="background:#f1f5f9; padding:15px; border-radius:15px; margin-bottom:15px;">
+                    <label>Manual Enrollment</label>
+                    <input type="text" id="addU" placeholder="Name" style="margin-bottom:5px;">
+                    <input type="tel" id="addPh" placeholder="Mobile" style="margin-bottom:5px;">
+                    <input type="text" id="addP" placeholder="Pass">
+                    <button class="btn-submit" onclick="addNewUser()" style="padding:10px;">ADD OPERATOR</button>
+                </div>${userList}`;
+        }
+    }
+
+    function renderTicketsList(tickets, isAdmin) {
+        if(tickets.length === 0) return '<p style="text-align:center; font-size:12px; color:var(--text-light); padding:20px;">No tickets found.</p>';
+        return tickets.map(tk => {
+            const rIdx = TICKETS.findIndex(t => t.id === tk.id);
+            const prioColor = tk.prio === 'Urgent' ? 'var(--error)' : (tk.prio === 'Low' ? 'var(--secondary)' : 'var(--warning)');
+            return `
+                <div class="list-item">
+                    <div style="display:flex; justify-content:space-between; align-items:start;">
+                        <div><span class="priority-tag" style="background:${prioColor}">${tk.prio}</span><b style="color:var(--primary)">${tk.id}</b></div>
+                        <span class="item-status status-${tk.status}">${tk.status}</span>
+                    </div>
+                    <p style="font-size:13px; color:var(--text-main); margin:10px 0;"><b>${tk.site}:</b> ${tk.desc}</p>
+                    <div class="time-info">
+                        <span>By: ${tk.user} (${tk.phone})</span><br>
+                        <span>Opened: ${tk.openedAt} ${tk.closedAt ? `| Closed: ${tk.closedAt}` : ''}</span>
+                    </div>
+                    <div class="action-group">
+                        ${isAdmin && tk.status !== 'resolved' ? `<button class="btn-mini" style="background:#e0e7ff;" onclick="updateStatus(${rIdx}, 'progress')">Working</button>` : ''}
+                        ${tk.status !== 'resolved' ? `<button class="btn-mini" style="background:#dcfce7;" onclick="resolveTicket(${rIdx})">Resolve</button>` : ''}
+                        ${isAdmin ? `<button class="btn-mini" onclick="deleteTicket(${rIdx})">🗑️</button>` : ''}
+                    </div>
+                </div>`;
+        }).join('');
+    }
+
+    function createTicket() {
+        const s = document.getElementById('site').value, c = document.getElementById('cat').value, i = document.getElementById('issue').value, p = document.getElementById('prio').value;
+        if(!s || !c || !i) return alert("Fill all required fields.");
+        const id = "SCS-" + Math.floor(1000 + Math.random() * 9000);
+        const time = getNow();
+        TICKETS.push({ id, site: s, desc: i, cat: c, prio: p, user: currentUser, phone: USER_DB[currentUser].phone, status: "pending", openedAt: time });
+        saveTickets();
+        const msg = `*NEW SCS TICKET*\nID: ${id}\nSite: ${s}\nPriority: ${p}\nIssue: ${i}\nBy: ${currentUser}\nContact: ${USER_DB[currentUser].phone}`;
+        navigator.clipboard.writeText(msg); 
+        window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+        renderMain('dashboard');
+    }
+
+    function updateStatus(idx, status) { TICKETS[idx].status = status; saveTickets(); renderMain('dashboard'); }
+    function resolveTicket(idx) { 
+        TICKETS[idx].status = 'resolved'; TICKETS[idx].closedAt = getNow(); saveTickets(); 
+        const msg = `*TICKET RESOLVED*\nID: ${TICKETS[idx].id}\nSite: ${TICKETS[idx].site}\nClosed at: ${TICKETS[idx].closedAt}`;
+        window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+        renderMain('dashboard'); 
+    }
+
+    function filterTickets() {
+        const q = document.getElementById('tkSearch').value.toLowerCase();
+        const isAdmin = USER_DB[currentUser].role !== "Standard User";
+        const filtered = TICKETS.filter(t => (isAdmin || t.user === currentUser) && (t.id.toLowerCase().includes(q) || t.site.toLowerCase().includes(q) || t.user.toLowerCase().includes(q)));
+        document.getElementById('ticketContainer').innerHTML = renderTicketsList(filtered.reverse(), isAdmin);
+    }
+
+    function exportCSV() {
+        let csv = "ID,Site,Priority,Status,Reporter,Phone,Opened,Closed\n";
+        TICKETS.forEach(t => csv += `${t.id},${t.site},${t.prio},${t.status},${t.user},${t.phone},${t.openedAt},${t.closedAt||''}\n`);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = `SCS_Report_${Date.now()}.csv`; a.click();
+    }
+
+    function handleLogin() {
+        const u = document.getElementById('uIn').value, p = document.getElementById('pIn').value;
+        if(USER_DB[u] && USER_DB[u].pass === p) {
+            if(USER_DB[u].status === "Blocked") return alert("Account Blocked.");
+            currentUser = u; renderMain();
+        } else alert("Invalid Login.");
+    }
+
+    function handleRegister() {
+        const u = document.getElementById('uReg').value, ph = document.getElementById('phReg').value, p = document.getElementById('pReg').value;
+        if(!u || !p || !ph) return alert("Fill all fields.");
+        USER_DB[u] = { pass: p, phone: ph, role: "Standard User", status: "Active" };
+        saveDB(); alert("Enrolled! Login now."); renderLogin();
+    }
+
+    function addNewUser() {
+        const u = document.getElementById('addU').value, ph = document.getElementById('addPh').value, p = document.getElementById('addP').value;
+        if(u && p && ph) { USER_DB[u] = { pass: p, phone: ph, role: "Admin", status: "Active" }; saveDB(); renderMain('users'); }
+    }
+    function toggleBlock(u) { USER_DB[u].status = (USER_DB[u].status === "Active" ? "Blocked" : "Active"); saveDB(); renderMain('users'); }
+    function deleteUser(u) { if(confirm("Delete user?")) { delete USER_DB[u]; saveDB(); renderMain('users'); } }
+    function deleteTicket(idx) { if(confirm("Delete ticket?")) { TICKETS.splice(idx, 1); saveTickets(); renderMain('dashboard'); } }
+
+    renderLogin();
+</script>
+</body>
+</html>
+<button class="btn-submit" onclick="handleRegister()">Register Account</button>
                 <div style="text-align:center; margin-top:15px;"><a onclick="renderLogin()" style="font-size:12px; color:var(--text-light); cursor:pointer;">Back to Login</a></div>
             </div>`;
     }
